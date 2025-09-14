@@ -97,7 +97,7 @@ Now continue.
 
 # ---- Gradio UI ----
 with gr.Blocks() as demo:
-    gr.Markdown("# 🔎 ReAct Agent with Claude + VectorDB + SerpAPI (Streaming)")
+    gr.Markdown("#ReAct Agent with Claude + VectorDB + SerpAPI (Streaming)")
 
     chatbot = gr.Chatbot(label="Agent Trace")
     query = gr.Textbox(label="Ask something", placeholder="e.g. best headphones reviews")

@@ -127,7 +127,7 @@ Now continue.
 
 # Gradio UI
 with gr.Blocks() as demo:
-    gr.Markdown("# ReAct Agent with Blocked Words Filter")
+    gr.Markdown("# ReAct Agent with Guardrails (Blocked Words Filter)")
 
     chatbot = gr.Chatbot(label="Agent Trace")
     query = gr.Textbox(label="Ask something", placeholder="e.g. latest iphone news")

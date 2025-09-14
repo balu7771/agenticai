@@ -20,7 +20,7 @@ class State(TypedDict):
 
 # Setup
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-vectordb = FAISS.load_local("c:/code/agentic_ai/4_langgraph/product_embeddings_faiss", embeddings, allow_dangerous_deserialization=True)
+vectordb = FAISS.load_local("c://code//agentic_ai//4_langgraph//product_embeddings_faiss", embeddings, allow_dangerous_deserialization=True)
 llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", google_api_key=os.getenv("GOOGLE_API_KEY"))
 
 # Nodes
