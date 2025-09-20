@@ -123,21 +123,36 @@ with gr.Blocks() as demo:
     query = gr.Textbox(label="Ask something", placeholder="e.g. latest iphone news")
 
     def respond(user_input, chat_history):
+        # Add a new entry to conversation history: User's message 
+        #    and empty response since there is no response yet
         chat_history.append(("User: " + user_input, ""))
+        
+        # react_agent is a generator, which yields immediate reasoning
+        #  tasks while working and eventually a final answer
+        # final = Final answer or null if still thinking
         for final, trace in react_agent(user_input):
             if final:  # final answer
                 chat_history[-1] = (
+                    # Replace chat history with user's message + 
+                    #  Answer text showing final answer/Trace of reasoning
                     chat_history[-1][0],
                     f"**Final Answer:** {final}\n\n---\n**Trace:**\n{trace}"
                 )
+                # Returns updated chat history to the frontend
+                #  without ending the function 
+                # Normally, a Gradio function returns once and updates UI
+                # But yield makes it a generator -> streams partial outputs
                 yield chat_history
             else:  # intermediate trace
+                # So update with Working ... and trace
                 chat_history[-1] = (
                     chat_history[-1][0],
                     f"Working...\n\n**Trace so far:**\n{trace}"
                 )
                 yield chat_history
 
+    # When the user submits, pass inputs query and chatbot to the 
+    #   respond function and update the chatbot through the yield above
     query.submit(respond, [query, chatbot], [chatbot])
 
 if __name__ == "__main__":
